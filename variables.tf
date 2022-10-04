@@ -105,11 +105,6 @@ variable "ssh_keys" {
   type        = map(any)
   default     = {}
 }
-variable "ssh_key_location" {
-  description = "The SSH keys to connect to the VMs"
-  type        = string
-  default     = "~/.ssh/id_rsa"
-}
 
 variable "rancher2" {
   description = "User for SSH Login"

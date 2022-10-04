@@ -9,6 +9,8 @@ module "cluster" {
 module "nodes" {
   source                = "./modules/nodes"
   cluster_name          = coalesce(var.cluster.name, "staging")
+  efi                   = var.efi
+  ssh_user              = var.ssh_user
   ssh_keys              = var.ssh_keys
   namespace             = var.namespace
   harvester_kube_config = local.harvester_kube_config
@@ -19,4 +21,3 @@ module "nodes" {
   server_args           = coalesce(var.cluster.server_args, "--etcd --controlplane --label 'cattle.io/os=linux'")
   agent_args            = coalesce(var.cluster.agent_args, "--worker --label 'cattle.io/os=linux'")
 }
-

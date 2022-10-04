@@ -105,11 +105,6 @@ variable "ssh_keys" {
   type        = map(any)
   default     = {}
 }
-variable "ssh_key_location" {
-  description = "The SSH keys to connect to the VMs"
-  type        = string
-  default     = "~/.ssh/id_rsa"
-}
 
 variable "registration_url" {
   description = "The curl command used to hook up the VMs"
