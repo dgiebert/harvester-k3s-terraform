@@ -65,7 +65,7 @@ resource "harvester_virtualmachine" "servers" {
 
   cloudinit {
     user_data = templatefile("${path.module}/templates/user_data.yml.tpl", {
-      ssh_keys         = harvester_ssh_key.keys
+      ssh_keys         = join("\n    ", (values(harvester_ssh_key.keys))[*].public_key)
       ssh_user         = var.ssh_user
       registration_cmd = "${var.registration_url} ${var.server_args}"
     })
@@ -108,7 +108,7 @@ resource "harvester_virtualmachine" "agents" {
 
   cloudinit {
     user_data = templatefile("${path.module}/templates/user_data.yml.tpl", {
-      ssh_keys         = harvester_ssh_key.keys
+      ssh_keys         = join("\n    ", (values(harvester_ssh_key.keys))[*].public_key)
       ssh_user         = var.ssh_user
       registration_cmd = "${var.registration_url} ${var.agent_args}"
     })
