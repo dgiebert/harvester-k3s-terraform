@@ -27,5 +27,4 @@ runcmd:
   - sudo systemctl enable --now qemu-guest-agent
   - sudo sysctl -p /etc/sysctl.d/90-kubelet.conf
   - sudo sysctl -p /etc/sysctl.d/90-rke2.conf
-  - sudo systemctl disable --now firewalld
   - ${registration_cmd}
