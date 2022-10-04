@@ -9,6 +9,7 @@ module "cluster" {
 module "nodes" {
   source                = "./modules/nodes"
   cluster_name          = coalesce(var.cluster.name, "staging")
+  ssh_keys              = var.ssh_keys
   namespace             = var.namespace
   harvester_kube_config = local.harvester_kube_config
   vlan_id               = var.vlan_id
