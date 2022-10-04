@@ -110,36 +110,3 @@ variable "ssh_key_location" {
   type        = string
   default     = "~/.ssh/id_rsa"
 }
-
-variable "rancher2" {
-  description = "User for SSH Login"
-  type        = map(string)
-  default = {
-    access_key = ""
-    secret_key = ""
-    url        = ""
-  }
-  validation {
-    condition     = length(var.rancher2.access_key) > 0
-    error_message = "Access Key must be provided check https://docs.ranchermanager.rancher.io/reference-guides/user-settings/api-keys"
-  }
-  validation {
-    condition     = length(var.rancher2.secret_key) > 0
-    error_message = "Secret Key must be provided check https://docs.ranchermanager.rancher.io/reference-guides/user-settings/api-keys"
-  }
-  validation {
-    condition     = length(var.rancher2.url) > 0
-    error_message = "Rancher URL must be provided"
-  }
-}
-
-variable "cluster" {
-  description = "User for SSH Login"
-  type        = map(string)
-  default = {
-    name        = "staging"
-    k3s_version = "v1.24.4+k3s1"
-    server_args = "--etcd --controlplane --label 'cattle.io/os=linux'"
-    agent_args  = "--worker --label 'cattle.io/os=linux'"
-  }
-}
