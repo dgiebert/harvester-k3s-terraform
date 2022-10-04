@@ -112,7 +112,6 @@ resource "harvester_virtualmachine" "agents" {
       ssh_user         = var.ssh_user
       registration_cmd = "${var.registration_url} ${var.agent_args}"
     })
-    network_data = var.cloud_init.network_data
   }
 
   # Make agents depend on the server to allow for -target to hit both
