@@ -110,3 +110,8 @@ variable "ssh_key_location" {
   type        = string
   default     = "~/.ssh/id_rsa"
 }
+
+variable "registration_url" {
+  description = "The curl command used to hook up the VMs"
+  type        = string
+}
