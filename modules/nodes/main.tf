@@ -10,9 +10,9 @@ resource "harvester_image" "opensuse-leap-15_4" {
 
 # VLAN Network
 resource "harvester_network" "vlan" {
-  name        = "vlan-${local.cluster.name}-${var.vlan_id}"
+  name        = "vlan-${var.cluster_name}-${var.vlan_id}"
   namespace   = var.namespace
-  description = "VLAN used for the cluster ${local.cluster.name} with ID ${var.vlan_id}"
+  description = "VLAN used for the cluster ${var.cluster_name} with ID ${var.vlan_id}"
 
   vlan_id = var.vlan_id
 
@@ -38,15 +38,15 @@ resource "harvester_ssh_key" "keys" {
 # Harvester VMs created to serve as server nodes (configured via var.server_vms)
 resource "harvester_virtualmachine" "servers" {
   count       = local.server_vms.number
-  name        = "${local.cluster.name}-server-${count.index}"
-  description = "This server node belongs to the cluster ${local.cluster.name} running ${harvester_image.opensuse-leap-15_4.display_name}"
+  name        = "${var.cluster_name}-server-${count.index}"
+  description = "This server node belongs to the cluster ${var.cluster_name} running ${harvester_image.opensuse-leap-15_4.display_name}"
   namespace   = var.namespace
   cpu         = local.server_vms.cpu
   memory      = local.server_vms.memory
   efi         = var.efi
 
   tags = {
-    cluster = local.cluster.name
+    cluster = var.cluster_name
     image   = harvester_image.opensuse-leap-15_4.name
     role    = "server"
   }
@@ -67,7 +67,7 @@ resource "harvester_virtualmachine" "servers" {
     user_data = templatefile("${path.module}/templates/user_data.yml.tpl", {
       ssh_keys         = values(harvester_ssh_key.keys),
       ssh_user         = var.ssh_user
-      registration_cmd = "${local.registration_url} ${local.cluster.server_args}"
+      registration_cmd = "${local.registration_url} ${var.server_args}"
     })
     network_data = local.cloud_init.network_data
   }
@@ -82,15 +82,15 @@ resource "harvester_virtualmachine" "servers" {
 # Harvester VMs created to serve as agent nodes (configured via var.agent_vms)
 resource "harvester_virtualmachine" "agents" {
   count       = local.agent_vms.number
-  name        = "${local.cluster.name}-agent-${count.index}"
-  description = "This server node belongs to the cluster ${local.cluster.name} running ${harvester_image.opensuse-leap-15_4.display_name}"
+  name        = "${var.cluster_name}-agent-${count.index}"
+  description = "This server node belongs to the cluster ${var.cluster_name} running ${harvester_image.opensuse-leap-15_4.display_name}"
   namespace   = var.namespace
   cpu         = local.agent_vms.cpu
   memory      = local.agent_vms.memory
   efi         = var.efi
 
   tags = {
-    cluster = local.cluster.name
+    cluster = var.cluster_name
     image   = harvester_image.opensuse-leap-15_4.name
     role    = "agent"
   }
@@ -111,7 +111,7 @@ resource "harvester_virtualmachine" "agents" {
     user_data = templatefile("${path.module}/templates/user_data.yml.tpl", {
       ssh_keys         = values(harvester_ssh_key.keys),
       ssh_user         = var.ssh_user
-      registration_cmd = "${local.registration_url} ${local.cluster.agent_args}"
+      registration_cmd = "${local.registration_url} ${var.agent_args}"
     })
     network_data = local.cloud_init.network_data
   }

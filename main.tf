@@ -8,6 +8,7 @@ module "cluster" {
 
 module "nodes" {
   source                = "./modules/nodes"
+  cluster_name          = coalesce(var.cluster.name, "staging")
   namespace             = var.namespace
   harvester_kube_config = var.harvester_kube_config != "" ? var.harvester_kube_config : "${path.root}/harvester.kubeconfig"
   vlan_id               = var.vlan_id

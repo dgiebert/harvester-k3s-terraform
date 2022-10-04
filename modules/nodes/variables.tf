@@ -30,10 +30,10 @@ variable "server_vms" {
     auto_delete = optional(bool)
   })
   default = {
-    number    = 3
-    cpu       = 4
-    memory    = "16Gi"
-    disk_size = "20Gi"
+    number      = 3
+    cpu         = 4
+    memory      = "16Gi"
+    disk_size   = "20Gi"
     auto_delete = true
   }
   validation {
@@ -68,10 +68,10 @@ variable "agent_vms" {
     auto_delete = optional(bool)
   })
   default = {
-    number    = 0
-    cpu       = 2
-    memory    = "4Gi"
-    disk_size = "20Gi"
+    number      = 0
+    cpu         = 2
+    memory      = "4Gi"
+    disk_size   = "20Gi"
     auto_delete = true
   }
   validation {
@@ -114,4 +114,22 @@ variable "ssh_key_location" {
 variable "registration_url" {
   description = "The curl command used to hook up the VMs"
   type        = string
+}
+
+variable "server_args" {
+  description = "The args passed to the registration command for servers"
+  type        = string
+  default     = "--etcd --controlplane --label 'cattle.io/os=linux'"
+}
+
+variable "agent_args" {
+  description = "The args passed to the registration command for agents"
+  type        = string
+  default     = "--worker --label 'cattle.io/os=linux'"
+}
+
+variable "cluster_name" {
+  description = "Name used for the cluster"
+  type        = string
+  default     = ""
 }
