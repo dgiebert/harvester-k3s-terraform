@@ -20,6 +20,12 @@ variable "vlan_id" {
   }
 }
 
+variable "vlan_name" {
+  description = "The VLAN name used to connect the VMs"
+  type        = string
+  default     = ""
+}
+
 variable "server_vms" {
   description = "Configuration for the server nodes "
   type = object({

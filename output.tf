@@ -8,3 +8,7 @@ output "registration_url" {
   description = "The URL used to provision new nodes"
 }
 
+output "ips" {
+  value       = module.nodes.ips
+  description = "The URL used to provision new nodes"
+}

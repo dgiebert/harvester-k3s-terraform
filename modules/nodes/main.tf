@@ -10,7 +10,7 @@ resource "harvester_image" "opensuse-leap-15_4" {
 
 # VLAN Network
 resource "harvester_network" "vlan" {
-  name        = "vlan-${var.cluster_name}-${var.vlan_id}"
+  name        = var.vlan_name
   namespace   = var.namespace
   description = "VLAN used for the cluster ${var.cluster_name} with ID ${var.vlan_id}"
 

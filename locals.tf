@@ -1,6 +1,9 @@
 # For better readability
 locals {
+  cluster_name = coalesce(var.cluster.name, "staging")
   harvester_kube_config = var.harvester_kube_config != "" ? var.harvester_kube_config : "${path.root}/harvester.kubeconfig"
+  vlan_name = var.vlan_name != "" ? var.vlan_name : "vlan-${local.cluster_name}-${var.vlan_id}"
+
   server_vms = {
     number      = coalesce(var.server_vms.number, 3)
     cpu         = coalesce(var.server_vms.cpu, 4)
