@@ -69,7 +69,6 @@ resource "harvester_virtualmachine" "servers" {
       ssh_user         = var.ssh_user
       registration_cmd = "${var.registration_url} ${var.server_args}"
     })
-    network_data = var.cloud_init.network_data
   }
   # This is to ignore volumes added using the CSI Provider
   lifecycle {
