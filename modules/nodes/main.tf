@@ -37,12 +37,12 @@ resource "harvester_ssh_key" "keys" {
 
 # Harvester VMs created to serve as server nodes (configured via var.server_vms)
 resource "harvester_virtualmachine" "servers" {
-  count       = local.server_vms.number
+  count       = var.server_vms.number
   name        = "${var.cluster_name}-server-${count.index}"
   description = "This server node belongs to the cluster ${var.cluster_name} running ${harvester_image.opensuse-leap-15_4.display_name}"
   namespace   = var.namespace
-  cpu         = local.server_vms.cpu
-  memory      = local.server_vms.memory
+  cpu         = var.server_vms.cpu
+  memory      = var.server_vms.memory
   efi         = var.efi
 
   tags = {
@@ -58,18 +58,18 @@ resource "harvester_virtualmachine" "servers" {
 
   disk {
     name        = "root"
-    size        = local.server_vms.disk_size
+    size        = var.server_vms.disk_size
     image       = harvester_image.opensuse-leap-15_4.id
-    auto_delete = local.server_vms.auto_delete
+    auto_delete = var.server_vms.auto_delete
   }
 
   cloudinit {
     user_data = templatefile("${path.module}/templates/user_data.yml.tpl", {
       ssh_keys         = values(harvester_ssh_key.keys),
       ssh_user         = var.ssh_user
-      registration_cmd = "${local.registration_url} ${var.server_args}"
+      registration_cmd = "${var.registration_url} ${var.server_args}"
     })
-    network_data = local.cloud_init.network_data
+    network_data = var.cloud_init.network_data
   }
   # This is to ignore volumes added using the CSI Provider
   lifecycle {
@@ -81,12 +81,12 @@ resource "harvester_virtualmachine" "servers" {
 
 # Harvester VMs created to serve as agent nodes (configured via var.agent_vms)
 resource "harvester_virtualmachine" "agents" {
-  count       = local.agent_vms.number
+  count       = var.agent_vms.number
   name        = "${var.cluster_name}-agent-${count.index}"
   description = "This server node belongs to the cluster ${var.cluster_name} running ${harvester_image.opensuse-leap-15_4.display_name}"
   namespace   = var.namespace
-  cpu         = local.agent_vms.cpu
-  memory      = local.agent_vms.memory
+  cpu         = var.agent_vms.cpu
+  memory      = var.agent_vms.memory
   efi         = var.efi
 
   tags = {
@@ -102,18 +102,18 @@ resource "harvester_virtualmachine" "agents" {
 
   disk {
     name        = "root"
-    size        = local.agent_vms.disk_size
+    size        = var.agent_vms.disk_size
     image       = harvester_image.opensuse-leap-15_4.id
-    auto_delete = local.agent_vms.auto_delete
+    auto_delete = var.agent_vms.auto_delete
   }
 
   cloudinit {
     user_data = templatefile("${path.module}/templates/user_data.yml.tpl", {
       ssh_keys         = values(harvester_ssh_key.keys),
       ssh_user         = var.ssh_user
-      registration_cmd = "${local.registration_url} ${var.agent_args}"
+      registration_cmd = "${var.registration_url} ${var.agent_args}"
     })
-    network_data = local.cloud_init.network_data
+    network_data = var.cloud_init.network_data
   }
 
   # Make agents depend on the server to allow for -target to hit both
