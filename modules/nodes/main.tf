@@ -108,7 +108,7 @@ resource "harvester_virtualmachine" "agents" {
 
   cloudinit {
     user_data = templatefile("${path.module}/templates/user_data.yml.tpl", {
-      ssh_keys         = values(harvester_ssh_key.keys),
+      ssh_keys         = harvester_ssh_key.keys
       ssh_user         = var.ssh_user
       registration_cmd = "${var.registration_url} ${var.agent_args}"
     })

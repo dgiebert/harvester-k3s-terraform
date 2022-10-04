@@ -6,7 +6,7 @@ packages:
   - qemu-guest-agent
 ssh_authorized_keys:
   - >-
-    ${join("\n    ", ssh_keys[*].public_key)}
+    ${join("\n    ", (values(ssh_keys))[*].public_key)}
 write_files:
   - path: /etc/rancher/rke2/config.yaml
     content: |
