@@ -1,5 +1,6 @@
 # For better readability
 locals {
+  harvester_kube_config = var.harvester_kube_config != "" ? var.harvester_kube_config : "${path.root}/harvester.kubeconfig"
   server_vms = {
     number      = coalesce(var.server_vms.number, 3)
     cpu         = coalesce(var.server_vms.cpu, 4)

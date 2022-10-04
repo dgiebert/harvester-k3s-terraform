@@ -10,7 +10,7 @@ module "nodes" {
   source                = "./modules/nodes"
   cluster_name          = coalesce(var.cluster.name, "staging")
   namespace             = var.namespace
-  harvester_kube_config = var.harvester_kube_config != "" ? var.harvester_kube_config : "${path.root}/harvester.kubeconfig"
+  harvester_kube_config = local.harvester_kube_config
   vlan_id               = var.vlan_id
   server_vms            = local.server_vms # Defaults specified in locals.tf
   agent_vms             = local.agent_vms  # Defaults specified in locals.tf
