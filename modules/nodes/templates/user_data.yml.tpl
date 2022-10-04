@@ -1,5 +1,5 @@
 #cloud-config
-user: ${var.ssh_user}
+user: ${ssh_user}
 package_update: true
 package_upgrade: true
 packages:
