@@ -18,6 +18,10 @@ write_files:
     content: |
       secrets-encryption: "true"
       protect-kernel-defaults: "true"
+      kube-apiserver-arg:
+      - "enable-admission-plugins=NodeRestriction,PodSecurityPolicy,ServiceAccount"
+      - 'audit-log-path=/var/lib/rancher/k3s/server/logs/audit.log'
+      - 'audit-policy-file=/var/lib/rancher/k3s/server/audit.yaml'
   - path: /etc/sysctl.d/90-kubelet.conf
     content: |
       vm.panic_on_oom=0
@@ -33,4 +37,5 @@ runcmd:
   - sudo systemctl enable --now qemu-guest-agent
   - sudo sysctl -p /etc/sysctl.d/90-kubelet.conf
   - sudo sysctl -p /etc/sysctl.d/90-rke2.conf
+  - sudo mkdir -p -m 700 /var/lib/rancher/k3s/server/logs
   - ${registration_cmd}
