@@ -8,12 +8,6 @@ ssh_authorized_keys:
   - >-
     ${ssh_keys}
 write_files:
-  - path: /var/lib/rancher/k3s/server/manifests/policy.yaml
-    encoding: gzip+base64
-    content: ${policy}
-  - path: /var/lib/rancher/k3s/server/manifests/network.yaml
-    encoding: gzip+base64
-    content: ${network}
   - path: /etc/rancher/rke2/config.yaml
     content: |
       secrets-encryption: "true"
@@ -38,4 +32,8 @@ runcmd:
   - sudo sysctl -p /etc/sysctl.d/90-kubelet.conf
   - sudo sysctl -p /etc/sysctl.d/90-rke2.conf
   - sudo mkdir -p -m 700 /var/lib/rancher/k3s/server/logs
+  - sudo mkdir -p /var/lib/rancher/k3s/server/manifests/
+  - sudo curl -o /var/lib/rancher/k3s/server/manifests/policy.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/policy.yaml
+  - sudo curl -o /var/lib/rancher/k3s/server/manifests/network.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/network.yaml
+  - sudo curl -o /var/lib/rancher/k3s/server/audit.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/audit.yaml
   - ${registration_cmd}
