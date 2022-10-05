@@ -37,5 +37,5 @@ runcmd:
   - curl -o /var/lib/rancher/k3s/server/manifests/policy.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/policy.yaml
   - curl -o /var/lib/rancher/k3s/server/manifests/network.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/network.yaml
   - curl -o /var/lib/rancher/k3s/server/audit.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/audit.yaml
-  - curl -o /etc/rancher/k3s/config.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/config.yaml
+  - curl -o /etc/rancher/k3s/config.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/${config_yaml}
   - ${registration_cmd}

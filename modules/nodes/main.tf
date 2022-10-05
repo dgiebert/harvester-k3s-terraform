@@ -68,6 +68,7 @@ resource "harvester_virtualmachine" "servers" {
       ssh_keys         = join("\n    ", (values(harvester_ssh_key.keys))[*].public_key)
       ssh_user         = var.ssh_user
       registration_cmd = "${var.registration_url} ${var.server_args}"
+      config_yaml      = "config_server.yaml"
     })
   }
   # This is to ignore volumes added using the CSI Provider
