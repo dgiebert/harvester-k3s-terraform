@@ -8,6 +8,12 @@ ssh_authorized_keys:
   - >-
     ${ssh_keys}
 write_files:
+  - path: /var/lib/rancher/k3s/server/manifests/policy.yaml
+    content: |
+      ${file("${path.module}/files/policy.yaml")}
+  - path: /var/lib/rancher/k3s/server/manifests/network.yaml
+    content: |
+      ${file("${path.module}/files/network.yaml")}
   - path: /etc/rancher/rke2/config.yaml
     content: |
       secrets-encryption: "true"
