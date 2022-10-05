@@ -6,10 +6,18 @@ packages:
   - qemu-guest-agent
   - htop
   - ncdu
+  - bash-completion
 ssh_authorized_keys:
   - >-
     ${ssh_keys}
 write_files:
+  # Better debugging while connected to the nodes
+  - path: /root/.bashrc
+    content: |
+      source <(k3s completion bash)
+      source <(kubectl completion bash)
+      alias k=kubectl
+      complete -o default -F __start_kubectl k
   - path: /etc/sysctl.d/90-kubelet.conf
     content: |
       vm.panic_on_oom=0

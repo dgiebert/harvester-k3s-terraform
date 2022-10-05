@@ -12,3 +12,8 @@ output "ips" {
   value       = module.nodes.ips
   description = "The URL used to provision new nodes"
 }
+
+output "cloud_init" {
+  value       = module.nodes.cloud_init
+  description = "Cloudinit used to provision the nodes"
+}
