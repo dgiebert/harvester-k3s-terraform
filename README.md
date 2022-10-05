@@ -47,6 +47,17 @@
 
 The `agent_vms` are not deployed per default (number = 0)
 
+## Outputs
+
+| Name             | Default | Description                                                                                                                                                |
+|:-----------------|:--------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| virtual_machines |         | The provisioned virtual machines on harvester. [docs](https://registry.terraform.io/providers/harvester/harvester/latest/docs/data-sources/virtualmachine) |
+| registration_url | ""      | The URL used to provision new nodes                                                                                                                        |
+| ips              | [""]    | The IPs of the nodes                                                                                                                                       |
+| cloud_init       | ""      | Cloudinit used to provision the nodes                                                                                                                      |
+
+
+
 ## Usage
 
 1. Get the Harvester kubeconfig and place it in `harvester.kubeconfig`
