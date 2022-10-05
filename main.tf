@@ -1,7 +1,7 @@
 module "cluster" {
   source                = "./modules/cluster"
   cluster_name          = local.cluster_name
-  k3s_version           = coalesce(var.cluster.k3s_version, "v1.24.4+k3s1")
+  k3s_version           = try(var.cluster.k3s_version, "v1.24.4+k3s1")
   rancher2              = var.rancher2
   enable_network_policy = true # Experimental
 }
@@ -19,6 +19,6 @@ module "nodes" {
   server_vms            = local.server_vms # Defaults specified in locals.tf
   agent_vms             = local.agent_vms  # Defaults specified in locals.tf
   registration_url      = module.cluster.registration_url
-  server_args           = coalesce(var.cluster.server_args, "--etcd --controlplane --label 'cattle.io/os=linux'")
-  agent_args            = coalesce(var.cluster.agent_args, "--worker --label 'cattle.io/os=linux'")
+  server_args           = try(var.cluster.server_args, "--etcd --controlplane --label 'cattle.io/os=linux'")
+  agent_args            = try(var.cluster.agent_args, "--worker --label 'cattle.io/os=linux'")
 }
