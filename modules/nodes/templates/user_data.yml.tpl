@@ -9,11 +9,11 @@ ssh_authorized_keys:
     ${ssh_keys}
 write_files:
   - path: /var/lib/rancher/k3s/server/manifests/policy.yaml
-    content: |
-      ${policy}
+    encoding: gzip+base64
+    content: ${policy}
   - path: /var/lib/rancher/k3s/server/manifests/network.yaml
-    content: |
-      ${network}
+    encoding: gzip+base64
+    content: ${network}
   - path: /etc/rancher/rke2/config.yaml
     content: |
       secrets-encryption: "true"
