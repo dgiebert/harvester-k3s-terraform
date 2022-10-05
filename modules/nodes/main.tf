@@ -68,6 +68,8 @@ resource "harvester_virtualmachine" "servers" {
       ssh_keys         = join("\n    ", (values(harvester_ssh_key.keys))[*].public_key)
       ssh_user         = var.ssh_user
       registration_cmd = "${var.registration_url} ${var.server_args}"
+      policy           = file("${path.module}/files/policy.yaml")
+      network          = file("${path.module}/files/network.yaml")
     })
   }
   # This is to ignore volumes added using the CSI Provider
@@ -111,6 +113,8 @@ resource "harvester_virtualmachine" "agents" {
       ssh_keys         = join("\n    ", (values(harvester_ssh_key.keys))[*].public_key)
       ssh_user         = var.ssh_user
       registration_cmd = "${var.registration_url} ${var.agent_args}"
+      policy           = file("${path.module}/files/policy.yaml")
+      network          = file("${path.module}/files/network.yaml")
     })
   }
 
