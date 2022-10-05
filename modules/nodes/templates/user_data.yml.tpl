@@ -1,4 +1,3 @@
-{assign url="https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes"}
 #cloud-config
 user: ${ssh_user}
 package_update: true
@@ -27,8 +26,8 @@ runcmd:
   - sysctl -p /etc/sysctl.d/90-kubelet.conf /etc/sysctl.d/90-rke2.conf
   - mkdir -p -m 700 /var/lib/rancher/k3s/server/logs
   - mkdir -p /var/lib/rancher/k3s/server/manifests/ /etc/rancher/k3s/
-  - curl ${url}/files/policy.yaml -o /var/lib/rancher/k3s/server/manifests/policy.yaml
-  - curl ${url}/files/network.yaml -o /var/lib/rancher/k3s/server/manifests/network.yaml
-  - curl ${url}/files/audit.yaml -o /var/lib/rancher/k3s/server/audit.yaml
-  - curl ${url}/files/config.yaml -o /etc/rancher/k3s/config.yaml
+  - curl -o /var/lib/rancher/k3s/server/manifests/policy.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/policy.yaml
+  - curl -o /var/lib/rancher/k3s/server/manifests/network.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/network.yaml
+  - curl -o /var/lib/rancher/k3s/server/audit.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/audit.yaml
+  - curl -o /etc/rancher/k3s/config.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/config.yaml
   - ${registration_cmd}
