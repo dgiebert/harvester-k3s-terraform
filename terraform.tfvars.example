@@ -1,6 +1,5 @@
 namespace             = "harvester-public"
 harvester_kube_config = "./harvester.kubeconfig"
-ssh_debug_log         = "./ssh.log"
 vlan_id               = 2
 efi                   = true
 
@@ -26,7 +25,6 @@ rancher2 = {
   url        = ""
 }
 
-ssh_key_location = "~/.ssh/id_rsa"
 ssh_user         = "rancher"
 ssh_keys = {
   user1 = "ssh-rsa AAAAB3Nza"
