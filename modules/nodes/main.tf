@@ -9,8 +9,8 @@ resource "harvester_image" "opensuse-leap-15_4" {
 }
 
 # VLAN Network
-data "harvester_clusternetwork" "mgmt" {
-  name = "mgmt"
+data "harvester_clusternetwork" "cluster-vlan" {
+  name = var.cluster_vlan
 }
 
 resource "harvester_network" "vlan" {
@@ -20,7 +20,7 @@ resource "harvester_network" "vlan" {
 
   vlan_id              = var.vlan_id
   route_mode           = "auto"
-  cluster_network_name = data.harvester_clusternetwork.mgmt.name
+  cluster_network_name = data.harvester_clusternetwork.cluster-vlan.name
 
   lifecycle {
     ignore_changes = [

@@ -140,6 +140,12 @@ variable "domain" {
   default     = "local"
 }
 
+variable "cluster_vlan" {
+  description = "Name of the Cluster VLAN"
+  type        = string
+  default     = "cluster-vlan"
+}
+
 variable "cluster" {
   description = "User for SSH Login"
   type        = any
