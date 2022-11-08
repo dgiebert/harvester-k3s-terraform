@@ -1,5 +1,7 @@
 #cloud-config
 user: ${ssh_user}
+hostname: ${hostname}
+fqdn: ${fqdn}
 package_update: true
 package_upgrade: true
 packages:
@@ -29,13 +31,18 @@ write_files:
     content: |
       net.ipv4.conf.all.forwarding=1
       net.ipv6.conf.all.forwarding=1
+  - path: /var/lib/rancher/k3s/server/audit.yaml
+    content: |
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+      - level: Metadata
 runcmd:
   - systemctl enable --now qemu-guest-agent
   - sysctl -p /etc/sysctl.d/90-kubelet.conf /etc/sysctl.d/90-rke2.conf
   - mkdir -p -m 700 /var/lib/rancher/k3s/server/logs
-  - mkdir -p /var/lib/rancher/k3s/server/manifests/ /etc/rancher/k3s/
+  - mkdir -p /var/lib/rancher/k3s/server/manifests /etc/rancher/k3s/
   - curl -o /var/lib/rancher/k3s/server/manifests/policy.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/policy.yaml
   - curl -o /var/lib/rancher/k3s/server/manifests/network.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/network.yaml
-  - curl -o /var/lib/rancher/k3s/server/audit.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/audit.yaml
   - curl -o /etc/rancher/k3s/config.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/${config_yaml}
   - ${registration_cmd}

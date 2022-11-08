@@ -36,10 +36,10 @@ variable "server_vms" {
     auto_delete = optional(bool)
   })
   default = {
-    number    = 3
-    cpu       = 4
-    memory    = "16Gi"
-    disk_size = "20Gi"
+    number      = 3
+    cpu         = 4
+    memory      = "16Gi"
+    disk_size   = "20Gi"
     auto_delete = true
   }
   validation {
@@ -74,10 +74,10 @@ variable "agent_vms" {
     auto_delete = optional(bool)
   })
   default = {
-    number    = 0
-    cpu       = 2
-    memory    = "4Gi"
-    disk_size = "20Gi"
+    number      = 0
+    cpu         = 2
+    memory      = "4Gi"
+    disk_size   = "20Gi"
     auto_delete = true
   }
   validation {
@@ -108,7 +108,7 @@ variable "ssh_user" {
 
 variable "ssh_keys" {
   description = "The SSH keys to connect to the VMs"
-  type        = map(any)
+  type        = any
   default     = {}
 }
 
@@ -134,11 +134,18 @@ variable "rancher2" {
   }
 }
 
+variable "domain" {
+  description = "domain for VM"
+  type        = string
+  default     = "local"
+}
+
 variable "cluster" {
   description = "User for SSH Login"
-  type        = map(string)
+  type        = any
   default = {
     name        = "staging"
+    labels      = {}
     k3s_version = "v1.24.4+k3s1"
     server_args = "--etcd --controlplane --label 'cattle.io/os=linux'"
     agent_args  = "--worker --label 'cattle.io/os=linux'"

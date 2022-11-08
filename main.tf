@@ -1,7 +1,8 @@
 module "cluster" {
   source                = "./modules/cluster"
   cluster_name          = local.cluster_name
-  k3s_version           = try(var.cluster.k3s_version, "v1.24.4+k3s1")
+  k3s_version           = local.k3s_version
+  labels                = local.labels
   rancher2              = var.rancher2
   enable_network_policy = true # Experimental
 }
@@ -16,9 +17,10 @@ module "nodes" {
   vlan_name             = local.vlan_name
   harvester_kube_config = local.harvester_kube_config
   vlan_id               = var.vlan_id
+  domain                = var.domain
   server_vms            = local.server_vms # Defaults specified in locals.tf
   agent_vms             = local.agent_vms  # Defaults specified in locals.tf
   registration_url      = module.cluster.registration_url
-  server_args           = try(var.cluster.server_args, "--etcd --controlplane --label 'cattle.io/os=linux'")
-  agent_args            = try(var.cluster.agent_args, "--worker --label 'cattle.io/os=linux'")
+  server_args           = local.server_args
+  agent_args            = local.agent_args
 }

@@ -2,14 +2,14 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/harvester/harvester" {
-  version     = "0.5.2"
-  constraints = "0.5.2"
+  version     = "0.6.0"
+  constraints = "0.6.0"
   hashes = [
-    "h1:g7cwtig0WervEoCSpNAq9Rmvv6ftRP5PMTRfAMtKMrc=",
-    "zh:15113208cc20cc76cdb06ae26ecb754e09c9319fd53c1f304ab97afd54e6cdf1",
-    "zh:2f142b1f58a74f2031695bd0e98f0d5b322eeb809deda7059519f90288c967b0",
-    "zh:3233ff2aefec2d62972043466598da08afefe8b203f1d41eceee288d4871b51e",
-    "zh:738fb08f8578730e04046dd579508749abf0d71b6c84460bebfd5178b9a143c4",
+    "h1:BwR9izJNphnHEFKy6R0kWNpgctE/ZLoQmnbK4ksgdVo=",
+    "zh:3d28801903906cd37f31c8e687c2387f49d539681f13999079cd7332d48cbc46",
+    "zh:541d634b2466c3a7dc4017fe29a0db51fbc4f38abd1fbe26df68583e6e832845",
+    "zh:768cf29e0c4b141e71f1d9cc49897d5648cc28f1b391e353372a6be3a4f3d2ba",
+    "zh:b2ef74c3ca3db44dc4116b6d7f4e4ed37af68de77d40693995ac3d4611d22e72",
   ]
 }
 

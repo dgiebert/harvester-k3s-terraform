@@ -13,6 +13,11 @@ variable "enable_network_policy" {
   type        = bool
   default     = true
 }
+variable "labels" {
+  description = "Add labels to the cluster"
+  type        = map
+  default     = {}
+}
 
 variable "rancher2" {
   description = "User for SSH Login"
