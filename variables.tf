@@ -108,8 +108,11 @@ variable "ssh_user" {
 
 variable "ssh_keys" {
   description = "The SSH keys to connect to the VMs"
-  type        = any
-  default     = {}
+  type        = map(string)
+  default = {
+    user1 = "ssh-rsa AAAAB3Nza"
+    user2 = "ssh-rsa AAAAB3Nza"
+  }
 }
 
 variable "rancher2" {
