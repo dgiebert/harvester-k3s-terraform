@@ -15,6 +15,7 @@ module "nodes" {
   ssh_keys              = var.ssh_keys
   namespace             = var.namespace
   vlan_name             = local.vlan_name
+  cluster_vlan          = var.cluster_vlan
   harvester_kube_config = local.harvester_kube_config
   vlan_id               = var.vlan_id
   domain                = var.domain

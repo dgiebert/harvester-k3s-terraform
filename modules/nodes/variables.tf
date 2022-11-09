@@ -139,3 +139,8 @@ variable "domain" {
   type        = string
   default     = "local"
 }
+variable "cluster_vlan" {
+  description = "Name of the Cluster VLAN"
+  type        = string
+  default     = "cluster-vlan"
+}
