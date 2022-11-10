@@ -151,7 +151,13 @@ variable "cluster_vlan" {
 
 variable "cluster" {
   description = "User for SSH Login"
-  type        = any
+  type = object({
+    name        = optional(string),
+    labels      = optional(map(string)),
+    k3s_version = optional(string),
+    server_args = optional(string),
+    agent_args  = optional(string),
+  })
   default = {
     name        = "staging"
     labels      = {}

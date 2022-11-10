@@ -24,10 +24,10 @@ provider "vault" {
 }
 
 data "vault_generic_secret" "rancher" {
-  path = <VAULT_PATH>/rancher"
+  path = <VAULT_PATH>/rancher
 }
 data "vault_generic_secret" "ssh-keys" {
-  path = <VAULT_PATH>/ssh-keys"
+  path = <VAULT_PATH>/ssh-keys
 }
 
 module "harvester-k3s" {

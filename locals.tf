@@ -1,10 +1,10 @@
 # For better readability
 locals {
-  cluster_name          = try(var.cluster.name, "staging")
-  k3s_version           = try(var.cluster.k3s_version, "v1.24.4+k3s1")
-  labels                = try(var.cluster.labels, {})
-  server_args           = try(var.cluster.server_args, "--etcd --controlplane --label 'cattle.io/os=linux'")
-  agent_args            = try(var.cluster.agent_args, "--worker --label 'cattle.io/os=linux'")
+  cluster_name          = coalesce(var.cluster.name, "staging")
+  k3s_version           = coalesce(var.cluster.k3s_version, "v1.24.4+k3s1")
+  labels                = coalesce(var.cluster.labels, {})
+  server_args           = coalesce(var.cluster.server_args, "--etcd --controlplane --label 'cattle.io/os=linux'")
+  agent_args            = coalesce(var.cluster.agent_args, "--worker --label 'cattle.io/os=linux'")
   harvester_kube_config = var.harvester_kube_config != "" ? var.harvester_kube_config : "${path.root}/harvester.kubeconfig"
   vlan_name             = var.vlan_name != "" ? var.vlan_name : "vlan-${local.cluster_name}-${var.vlan_id}"
 
