@@ -4,6 +4,8 @@ repos:
   rev: v0.16.0
   hooks:
   - id: terraform-docs-go
+    args: [--output-file, README.md, .]
+  - id: terraform-docs-go
     args: [tfvars, hcl, --output-file, terraform.tfvars.example, .]
 - repo: https://github.com/gruntwork-io/pre-commit
   rev: v0.1.17

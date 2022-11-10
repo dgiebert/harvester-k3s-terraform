@@ -28,10 +28,10 @@ provider "vault" {
 }
 
 data "vault_generic_secret" "rancher" {
-  path = <VAULT_PATH>/rancher"
+  path = <VAULT_PATH>/rancher
 }
 data "vault_generic_secret" "ssh-keys" {
-  path = <VAULT_PATH>/ssh-keys"
+  path = <VAULT_PATH>/ssh-keys
 }
 
 module "harvester-k3s" {
@@ -68,7 +68,7 @@ module "harvester-k3s" {
 | Name | Description | Type |
 |------|-------------|------|
 | <a name="input_agent_vms"></a> [agent_vms](#input_agent_vms) | Configuration for the agent nodes | <pre>object({<br>    number      = optional(number)<br>    cpu         = optional(number)<br>    memory      = optional(string)<br>    disk_size   = optional(string)<br>    auto_delete = optional(bool)<br>  })</pre> |
-| <a name="input_cluster"></a> [cluster](#input_cluster) | User for SSH Login | `any` |
+| <a name="input_cluster"></a> [cluster](#input_cluster) | User for SSH Login | <pre>object({<br>    name        = optional(string),<br>    labels      = optional(map(string)),<br>    k3s_version = optional(string),<br>    server_args = optional(string),<br>    agent_args  = optional(string),<br>  })</pre> |
 | <a name="input_cluster_vlan"></a> [cluster_vlan](#input_cluster_vlan) | Name of the Cluster VLAN | `string` |
 | <a name="input_domain"></a> [domain](#input_domain) | domain for VM | `string` |
 | <a name="input_efi"></a> [efi](#input_efi) | Enable EFI on the nodes | `bool` |
