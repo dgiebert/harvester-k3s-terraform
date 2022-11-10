@@ -1,4 +1,6 @@
 module "cluster" {
+  # Do not create a cluster if we pass along an registration url
+  count                 = var.clusterInfo.registration_url == null ? 1 : 0
   source                = "./modules/cluster"
   cluster_name          = local.cluster_name
   k3s_version           = local.k3s_version
@@ -21,7 +23,7 @@ module "nodes" {
   domain                = var.domain
   server_vms            = local.server_vms # Defaults specified in locals.tf
   agent_vms             = local.agent_vms  # Defaults specified in locals.tf
-  registration_url      = module.cluster.registration_url
+  registration_url      = local.registration_url
   server_args           = local.server_args
   agent_args            = local.agent_args
 }

@@ -6,11 +6,12 @@ agent_vms = {
   "memory": "4Gi",
   "number": 0
 }
-cluster = {
+clusterInfo = {
   "agent_args": "--worker --label 'cattle.io/os=linux'",
   "k3s_version": "v1.24.4+k3s1",
   "labels": {},
   "name": "staging",
+  "registration_url": "",
   "server_args": "--etcd --controlplane --label 'cattle.io/os=linux'"
 }
 cluster_vlan          = "cluster-vlan"

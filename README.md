@@ -10,6 +10,8 @@
    ![](/docs/ssh-keys.png)
 4. Create the Cluster with `terraform apply`
 
+## [Example](docs/example.tf)
+
 ```hcl
 terraform {
   required_version = ">= 0.14"
@@ -22,22 +24,22 @@ terraform {
 }
 
 provider "vault" {
-  address = <VAULT_URL>
-  token   = <VAULT_TOKEN>
+  address = "<VAULT_URL>"
+  token   = "<VAULT_TOKEN>"
 }
 
 data "vault_generic_secret" "rancher" {
-  path = <VAULT_PATH>/rancher
+  path = "<VAULT_PATH>/rancher"
 }
 data "vault_generic_secret" "ssh-keys" {
-  path = <VAULT_PATH>/ssh-keys
+  path = "<VAULT_PATH>/ssh-keys"
 }
 
 module "harvester-k3s" {
-  source   = "git::github.com/dgiebert/harvester-k3s-terraform?ref=v0.1.0"
+  source   = "git::github.com/dgiebert/harvester-k3s-terraform?ref=v0.2.0"
   rancher2 = data.vault_generic_secret.rancher.data
   ssh_keys = data.vault_generic_secret.ssh-keys.data
-  cluster  = {
+  cluster = {
     labels = { environment = "staging" }
   }
   server_vms = {
@@ -61,13 +63,14 @@ module "harvester-k3s" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement_terraform) | ~> 1.3 |
 | <a name="requirement_harvester"></a> [harvester](#requirement_harvester) | 0.6.0 |
+| <a name="requirement_rancher2"></a> [rancher2](#requirement_rancher2) | 1.24.1 |
 
 #### Inputs
 
 | Name | Description | Type |
 |------|-------------|------|
 | <a name="input_agent_vms"></a> [agent_vms](#input_agent_vms) | Configuration for the agent nodes | <pre>object({<br>    number      = optional(number)<br>    cpu         = optional(number)<br>    memory      = optional(string)<br>    disk_size   = optional(string)<br>    auto_delete = optional(bool)<br>  })</pre> |
-| <a name="input_cluster"></a> [cluster](#input_cluster) | Details for the k3s cluster to be created | <pre>object({<br>    name        = optional(string),<br>    labels      = optional(map(string)),<br>    k3s_version = optional(string),<br>    server_args = optional(string),<br>    agent_args  = optional(string),<br>  })</pre> |
+| <a name="input_clusterInfo"></a> [clusterInfo](#input_clusterInfo) | Details for the k3s cluster to be created | <pre>object({<br>    name             = optional(string),<br>    labels           = optional(map(string)),<br>    k3s_version      = optional(string),<br>    server_args      = optional(string),<br>    agent_args       = optional(string),<br>    registration_url = optional(string)<br>  })</pre> |
 | <a name="input_cluster_vlan"></a> [cluster_vlan](#input_cluster_vlan) | Name of the Cluster VLAN | `string` |
 | <a name="input_domain"></a> [domain](#input_domain) | domain for VM | `string` |
 | <a name="input_efi"></a> [efi](#input_efi) | Enable EFI on the nodes | `bool` |
@@ -84,7 +87,6 @@ module "harvester-k3s" {
 
 | Name | Description |
 |------|-------------|
-| <a name="output_clusterInfo"></a> [clusterInfo](#output_clusterInfo) | Combined output to be used with other providers/modules |
-| <a name="output_ips"></a> [ips](#output_ips) | The URL used to provision new nodes |
+| <a name="output_clusterInfo"></a> [clusterInfo](#output_clusterInfo) | Combined output to be used with other providers/modules (Format: [clusterInfo](#input_clusterInfo)) |
 | <a name="output_virtual_machines"></a> [virtual_machines](#output_virtual_machines) | The provisioned virtual machines on harvester. (https://registry.terraform.io/providers/harvester/harvester/latest/docs/data-sources/virtualmachine) |
 <!-- END_TF_DOCS -->

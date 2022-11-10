@@ -5,13 +5,21 @@
 formatter: markdown table
 
 header-from: docs/header.md
-# see: https://terraform-docs.io/user-guide/configuration/sections
-sections:
-  show:
-  - header
-  - requirements
-  - inputs
-  - outputs
+
+content: |-
+  {{ .Header }}
+
+  ## [Example](docs/example.tf)
+
+  ```hcl
+  {{ include "docs/example.tf" }}
+  ```
+
+  {{ .Requirements }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
 
 # see: https://terraform-docs.io/user-guide/configuration/sort
 sort:
