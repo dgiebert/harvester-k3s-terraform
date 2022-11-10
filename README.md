@@ -88,5 +88,5 @@ module "harvester-k3s" {
 | Name | Description |
 |------|-------------|
 | <a name="output_clusterInfo"></a> [clusterInfo](#output_clusterInfo) | Combined output to be used with other providers/modules (Format: [clusterInfo](#input_clusterInfo)) |
-| <a name="output_virtual_machines"></a> [virtual_machines](#output_virtual_machines) | The provisioned virtual machines on harvester. (https://registry.terraform.io/providers/harvester/harvester/latest/docs/data-sources/virtualmachine) |
+| <a name="output_virtual_machines"></a> [virtual_machines](#output_virtual_machines) | The provisioned virtual machines on harvester. (Format: [harvester_virtualmachine](https://registry.terraform.io/providers/harvester/harvester/latest/docs/data-sources/virtualmachine)) |
 <!-- END_TF_DOCS -->
