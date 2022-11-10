@@ -101,7 +101,7 @@ variable "efi" {
 }
 
 variable "ssh_user" {
-  description = "User for SSH Login"
+  description = "User for SSH to connect to the VMs"
   type        = string
   default     = "rancher"
 }
@@ -116,8 +116,12 @@ variable "ssh_keys" {
 }
 
 variable "rancher2" {
-  description = "User for SSH Login"
-  type        = map(string)
+  description = "Connection details for the Rancher2 API"
+  type = object({
+    access_key = string,
+    secret_key = string,
+    url        = string
+  })
   default = {
     access_key = ""
     secret_key = ""
@@ -150,7 +154,7 @@ variable "cluster_vlan" {
 }
 
 variable "cluster" {
-  description = "User for SSH Login"
+  description = "Details for the k3s cluster to be created"
   type = object({
     name        = optional(string),
     labels      = optional(map(string)),
