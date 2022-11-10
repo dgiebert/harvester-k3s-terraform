@@ -1,3 +1,4 @@
+---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -6,10 +7,10 @@ metadata:
 spec:
   podSelector: {}
   ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            name: kube-system
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -19,10 +20,10 @@ metadata:
 spec:
   podSelector: {}
   ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            name: default
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: default
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -32,10 +33,10 @@ metadata:
 spec:
   podSelector: {}
   ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            name: kube-public
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-public
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -75,7 +76,7 @@ metadata:
   name: allow-all-svclbtraefik-ingress
   namespace: kube-system
 spec:
-  podSelector: 
+  podSelector:
     matchLabels:
       svccontroller.k3s.cattle.io/svcname: traefik
   ingress:

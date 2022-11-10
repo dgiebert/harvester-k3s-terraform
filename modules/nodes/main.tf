@@ -64,7 +64,7 @@ resource "harvester_virtualmachine" "servers" {
       registration_cmd = "${var.registration_url} ${var.server_args}"
       config_yaml      = "config_server.yaml"
       hostname         = "server-${count.index}"
-      fqdn             = "server-${count.index}.${var.cluster_name}.${var.domain }"
+      fqdn             = "server-${count.index}.${var.cluster_name}.${var.domain}"
     })
   }
   # This is to ignore volumes added using the CSI Provider

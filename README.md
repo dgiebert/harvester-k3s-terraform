@@ -1,14 +1,15 @@
 # Harvester + k3s Provisioner using Rancher
 
 <!-- BEGIN_TF_DOCS -->
+
 ## Usage
 
 1. Get the Harvester kubeconfig and place it in `harvester.kubeconfig`
 2. Create the API Keys [docs](https://docs.ranchermanager.rancher.io/reference-guides/user-settings/api-keys)
-    ![](/docs/rancher.png)
-2. Create the SSH Keys
-    ![](/docs/ssh-keys.png)
-3. Create the Cluster with `terraform apply`
+   ![](/docs/rancher.png)
+3. Create the SSH Keys
+   ![](/docs/ssh-keys.png)
+4. Create the Cluster with `terraform apply`
 
 ```hcl
 terraform {
@@ -87,4 +88,5 @@ module "harvester-k3s" {
 | <a name="output_clusterInfo"></a> [clusterInfo](#output_clusterInfo) | Combined output to be used with other providers/modules |
 | <a name="output_ips"></a> [ips](#output_ips) | The URL used to provision new nodes |
 | <a name="output_virtual_machines"></a> [virtual_machines](#output_virtual_machines) | The provisioned virtual machines on harvester. (https://registry.terraform.io/providers/harvester/harvester/latest/docs/data-sources/virtualmachine) |
+
 <!-- END_TF_DOCS -->

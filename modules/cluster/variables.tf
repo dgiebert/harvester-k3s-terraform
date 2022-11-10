@@ -15,7 +15,7 @@ variable "enable_network_policy" {
 }
 variable "labels" {
   description = "Add labels to the cluster"
-  type        = map
+  type        = map(string)
   default     = {}
 }
 
