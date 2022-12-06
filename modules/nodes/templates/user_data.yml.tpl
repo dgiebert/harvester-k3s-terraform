@@ -1,7 +1,5 @@
 #cloud-config
 user: ${ssh_user}
-hostname: ${hostname}
-fqdn: ${fqdn}
 package_update: true
 package_upgrade: true
 packages:
@@ -13,7 +11,6 @@ ssh_authorized_keys:
   - >-
     ${ssh_keys}
 write_files:
-  # Better debugging while connected to the nodes
   - path: /root/.bashrc
     content: |
       source <(k3s completion bash)
@@ -27,22 +24,29 @@ write_files:
       kernel.panic=10
       kernel.panic_on_oops=1
       kernel.keys.root_maxbytes=25000000
-  - path: /etc/sysctl.d/90-rke2.conf
+  - path: /etc/sysctl.d/90-networking.conf
     content: |
-      net.ipv4.conf.all.forwarding=1
-      net.ipv6.conf.all.forwarding=1
+      net.ipv4.conf.all.forwarding = 1
+      net.ipv6.conf.all.disable_ipv6 = 1
+      net.ipv6.conf.default.disable_ipv6 = 1
   - path: /var/lib/rancher/k3s/server/audit.yaml
     content: |
       apiVersion: audit.k8s.io/v1
       kind: Policy
       rules:
       - level: Metadata
+  - path: /etc/rancher/k3s/config.yaml
+    content: |
+      protect-kernel-defaults: 'true'
+      kubelet-arg:
+      - make-iptables-util-chains=true
+      - streaming-connection-idle-timeout=5m
+
 runcmd:
   - systemctl enable --now qemu-guest-agent
-  - sysctl -p /etc/sysctl.d/90-kubelet.conf /etc/sysctl.d/90-rke2.conf
+  - sysctl -p /etc/sysctl.d/90-kubelet.conf /etc/sysctl.d/90-networking.conf
   - mkdir -p -m 700 /var/lib/rancher/k3s/server/logs
   - mkdir -p /var/lib/rancher/k3s/server/manifests /etc/rancher/k3s/
-  - curl -o /var/lib/rancher/k3s/server/manifests/policy.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/policy.yaml
-  - curl -o /var/lib/rancher/k3s/server/manifests/network.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/network.yaml
-  - curl -o /etc/rancher/k3s/config.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/develop/modules/nodes/files/${config_yaml}
+  - useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
+  - curl -o /var/lib/rancher/k3s/server/manifests/network.yaml https://raw.githubusercontent.com/dgiebert/harvester-k3s-terraform/main/modules/nodes/files/network.yaml
   - ${registration_cmd}

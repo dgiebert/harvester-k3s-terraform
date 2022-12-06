@@ -3,6 +3,11 @@ output "virtual_machines" {
   description = "The provisioned virtual machines on harvester. (Format: [harvester_virtualmachine](https://registry.terraform.io/providers/harvester/harvester/latest/docs/data-sources/virtualmachine))"
 }
 
+output "cluster_v1_id" {
+  description = "Useful to wait for the cluster to be fully functional"
+  value       = module.cluster[0].cluster_v1_id
+}
+
 output "clusterInfo" {
   value = {
     name             = local.cluster_name

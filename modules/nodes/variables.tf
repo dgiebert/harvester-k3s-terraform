@@ -4,12 +4,6 @@ variable "namespace" {
   default     = "harvester-public"
 }
 
-variable "harvester_kube_config" {
-  description = "The location to check for the kubeconfig to connect to Harverster"
-  type        = string
-  default     = ""
-}
-
 variable "vlan_id" {
   description = "The VLAN ID used to connect the VMs"
   type        = number
@@ -134,13 +128,27 @@ variable "cluster_name" {
   type        = string
   default     = ""
 }
-variable "domain" {
-  description = "domain for VM"
-  type        = string
-  default     = "local"
-}
+
 variable "cluster_vlan" {
   description = "Name of the Cluster VLAN"
   type        = string
   default     = "cluster-vlan"
+}
+
+variable "download_image" {
+  description = "Should the image be downloaded or is already present"
+  type        = bool
+  default     = true
+}
+
+variable "image_name" {
+  description = "Name for the image to be downloaded"
+  type        = string
+  default     = "opensuse-leap-15.4"
+}
+
+variable "source_image" {
+  description = "URL for the image to download"
+  type        = string
+  default     = "https://download.opensuse.org/repositories/Cloud:/Images:/Leap_15.4/images/openSUSE-Leap-15.4.x86_64-NoCloud.qcow2"
 }

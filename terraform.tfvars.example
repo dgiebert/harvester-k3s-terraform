@@ -8,21 +8,27 @@ agent_vms = {
 }
 clusterInfo = {
   "agent_args": "--worker --label 'cattle.io/os=linux'",
-  "k3s_version": "v1.24.4+k3s1",
+  "k3s_version": "v1.24.8+k3s1",
   "labels": {},
   "name": "staging",
   "registration_url": "",
   "server_args": "--etcd --controlplane --label 'cattle.io/os=linux'"
 }
 cluster_vlan          = "cluster-vlan"
-domain                = "local"
+download_image        = true
 efi                   = true
 harvester_kube_config = ""
-namespace             = "harvester-public"
+image_name            = "opensuse-leap-15.4"
 rancher2 = {
   "access_key": "",
   "secret_key": "",
   "url": ""
+}
+s3_credential_config = {
+  "access_key": "",
+  "default_bucket": "",
+  "default_region": "",
+  "secret_key": ""
 }
 server_vms = {
   "auto_delete": true,
@@ -31,6 +37,9 @@ server_vms = {
   "memory": "16Gi",
   "number": 3
 }
+snapshot_retention     = 5
+snapshot_schedule_cron = "0 */5 * * *"
+source_image           = "https://download.opensuse.org/repositories/Cloud:/Images:/Leap_15.4/images/openSUSE-Leap-15.4.x86_64-NoCloud.qcow2"
 ssh_keys = {
   "user1": "ssh-rsa AAAAB3Nza",
   "user2": "ssh-rsa AAAAB3Nza"

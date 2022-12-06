@@ -63,6 +63,7 @@ module "harvester-k3s" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement_terraform) | ~> 1.3 |
 | <a name="requirement_harvester"></a> [harvester](#requirement_harvester) | 0.6.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement_kubernetes) | 2.16.0 |
 | <a name="requirement_rancher2"></a> [rancher2](#requirement_rancher2) | 1.24.1 |
 
 #### Inputs
@@ -72,12 +73,16 @@ module "harvester-k3s" {
 | <a name="input_agent_vms"></a> [agent_vms](#input_agent_vms) | Configuration for the agent nodes | <pre>object({<br>    number      = optional(number)<br>    cpu         = optional(number)<br>    memory      = optional(string)<br>    disk_size   = optional(string)<br>    auto_delete = optional(bool)<br>  })</pre> |
 | <a name="input_clusterInfo"></a> [clusterInfo](#input_clusterInfo) | Details for the k3s cluster to be created | <pre>object({<br>    name             = optional(string),<br>    labels           = optional(map(string)),<br>    k3s_version      = optional(string),<br>    server_args      = optional(string),<br>    agent_args       = optional(string),<br>    registration_url = optional(string)<br>  })</pre> |
 | <a name="input_cluster_vlan"></a> [cluster_vlan](#input_cluster_vlan) | Name of the Cluster VLAN | `string` |
-| <a name="input_domain"></a> [domain](#input_domain) | domain for VM | `string` |
+| <a name="input_download_image"></a> [download_image](#input_download_image) | Should the image be downloaded or is already present | `bool` |
 | <a name="input_efi"></a> [efi](#input_efi) | Enable EFI on the nodes | `bool` |
 | <a name="input_harvester_kube_config"></a> [harvester_kube_config](#input_harvester_kube_config) | The location to check for the kubeconfig to connect to Harverster | `string` |
-| <a name="input_namespace"></a> [namespace](#input_namespace) | The namespace resources get deployed to within Harvester | `string` |
+| <a name="input_image_name"></a> [image_name](#input_image_name) | Name for the image to be downloaded | `string` |
 | <a name="input_rancher2"></a> [rancher2](#input_rancher2) | Connection details for the Rancher2 API | <pre>object({<br>    access_key = string,<br>    secret_key = string,<br>    url        = string<br>  })</pre> |
+| <a name="input_s3_credential_config"></a> [s3_credential_config](#input_s3_credential_config) | Check https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cloud_credential#s3_credential_config | <pre>object({<br>    access_key     = string,<br>    secret_key     = string,<br>    default_bucket = string,<br>    default_region = string,<br>  })</pre> |
 | <a name="input_server_vms"></a> [server_vms](#input_server_vms) | Configuration for the server nodes | <pre>object({<br>    number      = optional(number)<br>    cpu         = optional(number)<br>    memory      = optional(string)<br>    disk_size   = optional(string)<br>    auto_delete = optional(bool)<br>  })</pre> |
+| <a name="input_snapshot_retention"></a> [snapshot_retention](#input_snapshot_retention) | How many snapshots should be kept | `number` |
+| <a name="input_snapshot_schedule_cron"></a> [snapshot_schedule_cron](#input_snapshot_schedule_cron) | How often should a snapshots be taken (cron format) | `string` |
+| <a name="input_source_image"></a> [source_image](#input_source_image) | URL for the image to download | `string` |
 | <a name="input_ssh_keys"></a> [ssh_keys](#input_ssh_keys) | The SSH keys to connect to the VMs | `map(string)` |
 | <a name="input_ssh_user"></a> [ssh_user](#input_ssh_user) | User for SSH to connect to the VMs | `string` |
 | <a name="input_vlan_id"></a> [vlan_id](#input_vlan_id) | The VLAN ID used to connect the VMs | `number` |
@@ -88,5 +93,6 @@ module "harvester-k3s" {
 | Name | Description |
 |------|-------------|
 | <a name="output_clusterInfo"></a> [clusterInfo](#output_clusterInfo) | Combined output to be used with other providers/modules (Format: [clusterInfo](#input_clusterInfo)) |
+| <a name="output_cluster_v1_id"></a> [cluster_v1_id](#output_cluster_v1_id) | Useful to wait for the cluster to be fully functional |
 | <a name="output_virtual_machines"></a> [virtual_machines](#output_virtual_machines) | The provisioned virtual machines on harvester. (Format: [harvester_virtualmachine](https://registry.terraform.io/providers/harvester/harvester/latest/docs/data-sources/virtualmachine)) |
 <!-- END_TF_DOCS -->
