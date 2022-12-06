@@ -40,3 +40,35 @@ variable "rancher2" {
     error_message = "Rancher URL must be provided"
   }
 }
+
+variable "snapshot_retention" {
+  type    = number
+  default = 5
+}
+
+variable "snapshot_schedule_cron" {
+  type    = string
+  default = "0 */5 * * *"
+}
+
+variable "s3_credential_config" {
+  description = "Check https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cloud_credential#s3_credential_config"
+  type = object({
+    access_key     = string,
+    secret_key     = string,
+    default_bucket = string,
+    default_region = string,
+  })
+  default = {
+    access_key     = "",
+    secret_key     = "",
+    default_bucket = "",
+    default_region = "",
+  }
+}
+
+variable "namespace" {
+  description = "The namespace resources get deployed to within Harvester"
+  type        = string
+  default     = "harvester-public"
+}

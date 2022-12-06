@@ -1,9 +1,3 @@
-variable "namespace" {
-  description = "The namespace resources get deployed to within Harvester"
-  type        = string
-  default     = "harvester-public"
-}
-
 variable "harvester_kube_config" {
   description = "The location to check for the kubeconfig to connect to Harverster"
   type        = string
@@ -141,12 +135,6 @@ variable "rancher2" {
   }
 }
 
-variable "domain" {
-  description = "domain for VM"
-  type        = string
-  default     = "local"
-}
-
 variable "cluster_vlan" {
   description = "Name of the Cluster VLAN"
   type        = string
@@ -166,9 +154,53 @@ variable "clusterInfo" {
   default = {
     name             = "staging"
     labels           = {}
-    k3s_version      = "v1.24.4+k3s1"
+    k3s_version      = "v1.24.8+k3s1"
     server_args      = "--etcd --controlplane --label 'cattle.io/os=linux'"
     agent_args       = "--worker --label 'cattle.io/os=linux'"
     registration_url = ""
+  }
+}
+
+variable "image_name" {
+  description = "Name for the image to be downloaded"
+  type        = string
+  default     = "opensuse-leap-15.4"
+}
+variable "download_image" {
+  description = "Should the image be downloaded or is already present"
+  type        = bool
+  default     = true
+}
+variable "source_image" {
+  description = "URL for the image to download"
+  type        = string
+  default     = "https://download.opensuse.org/repositories/Cloud:/Images:/Leap_15.4/images/openSUSE-Leap-15.4.x86_64-NoCloud.qcow2"
+}
+
+variable "snapshot_retention" {
+  description = "How many snapshots should be kept"
+  type        = number
+  default     = 5
+}
+
+variable "snapshot_schedule_cron" {
+  description = "How often should a snapshots be taken (cron format)"
+  type        = string
+  default     = "0 */5 * * *"
+}
+
+variable "s3_credential_config" {
+  description = "Check https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cloud_credential#s3_credential_config"
+  type = object({
+    access_key     = string,
+    secret_key     = string,
+    default_bucket = string,
+    default_region = string,
+  })
+  default = {
+    access_key     = "",
+    secret_key     = "",
+    default_bucket = "",
+    default_region = "",
   }
 }

@@ -1,4 +1,0 @@
-protect-kernel-defaults: 'true'
-kubelet-arg:
-- make-iptables-util-chains=true
-- streaming-connection-idle-timeout=5m

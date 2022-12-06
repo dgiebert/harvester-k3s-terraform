@@ -7,13 +7,16 @@ repos:
     args: [--output-file, README.md, .]
   - id: terraform-docs-go
     args: [tfvars, hcl, --output-file, terraform.tfvars.example, .]
+- repo: https://github.com/antonbabenko/pre-commit-terraform
+  rev: v1.77.0
+  hooks:
+  - id: terraform_fmt
+  - id: terraform_tflint
 - repo: https://github.com/gruntwork-io/pre-commit
   rev: v0.1.17
   hooks:
-  - id: terraform-fmt
   - id: terraform-validate
     exclude: docs/[^/]+$
-  - id: tflint
 - repo: https://github.com/tfsec/tfsec
   rev: v1.28.1
   hooks:
